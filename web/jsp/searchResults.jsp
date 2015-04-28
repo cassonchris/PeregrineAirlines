@@ -4,16 +4,19 @@
     Author     : Chris
 --%>
 
+<%@page import="com.peregrineairlines.entities.Ticket"%>
 <%@page import="java.util.Collection"%>
 <%@page import="com.peregrineairlines.entities.Flight"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    Collection<Flight> flights = (Collection) request.getAttribute("flights");
+    Collection<Flight> returnFlights = (Collection) request.getAttribute("returnFlights");
+    Integer exchangeTicketId = (Integer) request.getAttribute("exchangeTicketId");
+    String passengers = (String) request.getAttribute("passengers");
+    String message = (String) request.getAttribute("message");
+%>
 <html>
-    <%
-        Collection<Flight> flights = (Collection) request.getAttribute("flights");
-        Collection<Flight> returnFlights = (Collection) request.getAttribute("returnFlights");
-        String passengers = (String) request.getAttribute("passengers");
-    %>
     <head>
         <title>Book Flight</title>
         <meta charset="utf-8">
@@ -52,9 +55,9 @@
                 <nav>
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
-                        <li id="menu_active"><a href="Book.html"><span><span>Book Flight</span></span></a></li></li>
-                        <li><a href="#"><span><span>Change Flight</span></span></a></li>
+                        <li id="menu_active"><a href="Book.html"><span><span>Book Flight</span></span></a></li>
                         <li><a href="Checkin.html"><span><span>Checkin</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
                 </nav>
@@ -63,9 +66,13 @@
             <!--content -->
             <section id="content">
                 <div class="wrapper pad1" style="height: 500px;">
+                <% if (message != null) {%>
+                <h3 class="top"><%= message%></h3>
+                <% }%>
                     <form action="/PeregrineAirlines/SearchFlights">
                         <input type="hidden" name="action" value="selectFlight" />
                         <input type="hidden" name="passengers" value="<%= passengers%>" />
+                        <input type="hidden" name="exchangeTicketId" value="<%= exchangeTicketId%>" />
                         <% if (flights != null) {%>
                         <div class="box2">
                             <h2 class="top">Flight Details</h2>

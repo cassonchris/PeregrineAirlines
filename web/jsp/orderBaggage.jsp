@@ -44,8 +44,8 @@
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="#"><span><span>Change Flight</span></span></a></li>
                         <li><a href="/PeregrineAirlines/CheckIn"><span><span>Checkin</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
                 </nav>

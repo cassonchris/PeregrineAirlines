@@ -4,6 +4,7 @@
 <%
     Collection<Ticket> purchasedTickets = (Collection) request.getAttribute("purchasedTickets");
     Ticket checkedTicket = (Ticket) request.getAttribute("checkedTicket");
+    Ticket returnedTicket = (Ticket) request.getAttribute("returnedTicket");
 %>
 <html lang="en">
     <head>
@@ -43,10 +44,10 @@
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li id="menu_active"><a href="Safety.html"><span><span>CheckIn</span></span></a></li>
-                        <li><a href="Book.html"><span><span>Change Flight</span></span></a></li>
+                        <li><a href="Safety.html"><span><span>CheckIn</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
                 </nav>
@@ -95,6 +96,25 @@
                             <td><%= checkedTicket.getSeat()%></td>
                             <td><%= checkedTicket.getPassengerFirstname()%></td>
                             <td><%= checkedTicket.getPassengerLastname()%></td>
+                        </tr>
+                    </table>
+                    <% }%>
+                    <% if (returnedTicket != null) {%>
+                    <h1 class="top">Your ticket has been returned</h1>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>Ticket Number</th>
+                            <th>Flight Number</th>
+                            <th>Seat</th>
+                            <th>Passenger First Name</th>
+                            <th>Passenger Last Name</th>
+                        </tr>
+                        <tr>
+                            <td><%= returnedTicket.getTicketId()%></td>
+                            <td><%= returnedTicket.getFlight().getFlightId()%></td>
+                            <td><%= returnedTicket.getSeat()%></td>
+                            <td><%= returnedTicket.getPassengerFirstname()%></td>
+                            <td><%= returnedTicket.getPassengerLastname()%></td>
                         </tr>
                     </table>
                     <% }%>

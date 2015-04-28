@@ -52,7 +52,7 @@
                         <li><a href="/PeregrineAirlines/Home"><span><span>About</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book</span></span></a></li>
                         <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>CheckIn</span></span></a></li>
-                        <li><a href="Book.html"><span><span>Change Flight</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contacts</span></span></a></li>
                     </ul>
                 </nav>

@@ -1,10 +1,10 @@
 <%@page import="java.util.Collection"%>
 <%@page import="com.peregrineairlines.entities.Airport"%>
 <!DOCTYPE html>
+<%
+    Collection<Airport> airports = (Collection) request.getAttribute("airports");
+%>
 <html lang="en">
-    <%
-        Collection<Airport> airports = (Collection) request.getAttribute("airports");
-    %>
     <head>
         <title>Home</title>
         <meta charset="utf-8">
@@ -26,7 +26,7 @@
             $(function () {
                 $(".datepicker").datepicker({minDate: 0});
             });
-            
+
             function toggleReturnDate() {
                 if (document.getElementById("roundTripRadio").checked) {
                     document.getElementById("returnDateRow").style.display = "table-row";
@@ -60,7 +60,7 @@
                         <li><li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li><li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
                         <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
-                        <li><a href="#"><span><span>Change Flight</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
                 </nav>
@@ -152,10 +152,6 @@
                 </div>
             </section>
             <!--content end-->
-            <!--footer -->
-            <footer>
-            </footer>
-            <!--footer end-->
             <script type="text/javascript"> Cufon.now();</script>
             <script>
                 $(document).ready(function () {

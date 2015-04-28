@@ -141,6 +141,16 @@ public class SearchFlights extends HttpServlet {
                     }
                 }
                 request.setAttribute("tickets", tickets);
+                
+                String exchangeTicketIdString = request.getParameter("exchangeTicketId");
+                if (exchangeTicketIdString != null) {
+                    exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", "");
+                    if (!exchangeTicketIdString.isEmpty()) {
+                        Integer exchangeTicketId = Integer.parseInt(exchangeTicketIdString);
+                        Ticket exchangeTicket = PAModel.getTicketById(exchangeTicketId);
+                        request.setAttribute("exchangeTicket", exchangeTicket);
+                    }
+                }
 
                 nextUrl = "/jsp/order.jsp";
             } else if (action.equalsIgnoreCase("changeFlightSearch")) {

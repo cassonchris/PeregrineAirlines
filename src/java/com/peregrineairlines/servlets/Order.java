@@ -66,7 +66,16 @@ public class Order extends HttpServlet {
 
                         String customerFirstName = request.getParameter("customerFirstName");
                         String customerLastName = request.getParameter("customerLastName");
-                        
+
+                        String exchangeTicketIdString = request.getParameter("exchangeTicketId");
+                        if (exchangeTicketIdString != null) {
+                            exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", "");
+                            if (!exchangeTicketIdString.isEmpty()) {
+                                Integer exchangeTicketId = Integer.parseInt(exchangeTicketIdString);
+                                PAModel.returnTicket(exchangeTicketId);
+                            }
+                        }
+
                         Collection<Ticket> purchasedTickets = PAModel.submitOrder(tickets, customerFirstName, customerLastName);
                         request.setAttribute("purchasedTickets", purchasedTickets);
 
