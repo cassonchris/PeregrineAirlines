@@ -12,7 +12,9 @@
         <link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-        <script type="text/javascript" src="js/jquery-1.5.2.js" ></script>
+        <link rel="stylesheet" href="css/jquery-ui.css" />
+        <script src="js/jquery-1.9.1.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/cufon-yui.js"></script>
         <script type="text/javascript" src="js/cufon-replace.js"></script>  
         <script type="text/javascript" src="js/Cabin_400.font.js"></script>
@@ -21,6 +23,11 @@
         <script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
         <script type="text/javascript" src="js/atooltip.jquery.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker({minDate: 0});
+            });
+        </script>
         <!--[if lt IE 9]>
         <script type="text/javascript" src="js/html5.js"></script>
         <style type="text/css">
@@ -43,8 +50,8 @@
                 <nav>
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
-                        <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Checkin</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>Checkin</span></span></a></li>
                         <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
@@ -67,28 +74,37 @@
                                             <td><%= numberOfBags%></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
+                                            <td>Total</td>
                                             <td>$<%= numberOfBags * 20%></td>
                                         </tr>
                                     </table>
 
                                     <h2 class="top">Payment Information</h2>
                                     <div class="pad">
-                                        <div class="wrapper under">
-                                            <div class="row"><span class="left">First Name*</span>
-                                                <input type="text" name="customerFirstName" class="input" required /></div>
-
-                                            <div class="row"><span class="left">Last Name*</span>
-                                                <input type="text" name="customerLastName" class="input" required /></div>
-
-                                            <div class="row"><span class="left">Card Num*</span>
-                                                <input type="text" class="input" pattern="[0-9]{16}" required /></div>
-                                            <div class = "row">	<span class="left"> Expiry Date:</span>
-                                                <input type="date" /></div>
-                                            <div class = "row"><span class="left">CVV:</span> 							
-                                                <input type="text" class="input" pattern="[0-9]{3}" required /></div>
-                                        </div>	
+                                        <table>
+                                            <tr>
+                                                <td>First Name*</td>
+                                                <td><input type="text" name="customerFirstName" class="input" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Name*</td>
+                                                <td><input type="text" name="customerLastName" class="input" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Card Number*</td>
+                                                <td><input type="text" class="input" pattern="[0-9]{16}" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expiration Date*</td>
+                                                <td><input type="text" class="input datepicker" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>CVV*</td>
+                                                <td><input type="text" class="input" pattern="[0-9]{3}" required /></td>
+                                            </tr>
+                                        </table>	
                                     </div>
+                                    <br />
                                     <input type="submit" class="button1" value="Pay for Bags" />
                                 </form>
                             </div>

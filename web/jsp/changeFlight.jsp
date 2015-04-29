@@ -77,97 +77,99 @@
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <h2 class="top">Change Flight</h2>
-                <% if (message != null) {%>
-                <h3 class="top"><%= message%></h3>
-                <% }%>
-                <form action="/PeregrineAirlines/ChangeFlight">
-                    <table class="radio">
-                        <tr>
-                            <td>Confirmation Number*</td>
-                            <td><input type="text" name="ticketId" class="input" required /></td>
-                        </tr>
-                        <tr>
-                            <td>Cancel</td>
-                            <td><input type="radio" name="action" value="cancelTicket" onchange="toggleSearchDiv();" /></td>
-                        </tr>
-                        <tr>
-                            <td>Change</td>
-                            <td><input id="changeFlightRadio" type="radio" name="action" value="changeFlight" onchange="toggleSearchDiv();" checked="true" /></td>
-                        </tr>
-                    </table>
-                    <div id="searchDiv">
+                <div class="wrapper pad1 box10">
+                    <% if (message != null) {%>
+                    <h3 class="top"><%= message%></h3>
+                    <% }%>
+                    <h2 class="top">Change Flight</h2>
+                    <form action="/PeregrineAirlines/ChangeFlight">
                         <table class="radio">
                             <tr>
-                                <td>One way</td>
-                                <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked></td>
+                                <td>Confirmation Number*</td>
+                                <td><input type="text" name="ticketId" class="input" required /></td>
                             </tr>
                             <tr>
-                                <td>Round trip</td>
-                                <td><input id="roundTripRadio" type="radio" name="triptype" onchange="toggleReturnDate();"></td>
+                                <td>Cancel</td>
+                                <td><input type="radio" name="action" value="cancelTicket" onchange="toggleSearchDiv();" /></td>
                             </tr>
                             <tr>
-                                <td>From City:</td>
-                                <td>
-                                    <select name="from">
-                                        <%
-                                            if (airports != null) {
-                                                for (Airport airport : airports) {
-                                        %>
-                                        <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
-                                        <%
-                                                }
-                                            }
-                                        %>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>To City:</td>
-                                <td>
-                                    <select name="to">
-                                        <%
-                                            if (airports != null) {
-                                                for (Airport airport : airports) {
-                                        %>
-                                        <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
-                                        <%
-                                                }
-                                            }
-                                        %>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Depart Date:</td>
-                                <td><input type="date" class="datepicker" name="departdate" /></td>
-                            </tr>
-                            <tr id="returnDateRow" style="display: none;">
-                                <td>Return Date:</td>
-                                <td><input type="date" class="datepicker" name="returndate" /></td>
-                            </tr>
-                            <tr>
-                                <td>Passengers</td>
-                                <td>
-                                    <select name="passengers">
-                                        <option></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </td>
+                                <td>Change</td>
+                                <td><input id="changeFlightRadio" type="radio" name="action" value="changeFlight" onchange="toggleSearchDiv();" checked="true" /></td>
                             </tr>
                         </table>
-                    </div> 
-                    <table>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" class="button1" value="Continue"</td>
-                        </tr>
-                    </table>
-                </form>
+                        <div id="searchDiv">
+                            <h2>Flight Search</h2>
+                            <table class="radio">
+                                <tr>
+                                    <td>From City:</td>
+                                    <td>
+                                        <select name="from">
+                                            <%
+                                                if (airports != null) {
+                                                    for (Airport airport : airports) {
+                                            %>
+                                            <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>To City:</td>
+                                    <td>
+                                        <select name="to">
+                                            <%
+                                                if (airports != null) {
+                                                    for (Airport airport : airports) {
+                                            %>
+                                            <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>One way</td>
+                                    <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked></td>
+                                </tr>
+                                <tr>
+                                    <td>Round trip</td>
+                                    <td><input id="roundTripRadio" type="radio" name="triptype" onchange="toggleReturnDate();"></td>
+                                </tr>
+                                <tr>
+                                    <td>Depart Date:</td>
+                                    <td><input type="date" class="datepicker input" name="departdate" /></td>
+                                </tr>
+                                <tr id="returnDateRow" style="display: none;">
+                                    <td>Return Date:</td>
+                                    <td><input type="date" class="datepicker input" name="returndate" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Passengers</td>
+                                    <td>
+                                        <select name="passengers">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> 
+                        <table>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" class="button1" value="Continue"</td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </section>
             <!--content end-->
         </div>

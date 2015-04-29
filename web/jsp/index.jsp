@@ -70,123 +70,83 @@
             <section id="content">
                 <div class="for_banners">
                     <article class="col1">
-                        <div class="tabs">
-                            <div class="content">
-                                <div class="tab-content" id="Flight">
-                                    <form id="form_1" action="/PeregrineAirlines/SearchFlights">
-                                        <input type="hidden" name="action" value="searchFlights" />
-                                        <div class="radio">
-                                            <table class="radio">
-                                                <tr>
-                                                    <td>One way</td>
-                                                    <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Round trip</td>
-                                                    <td><input id="roundTripRadio" type="radio" name="triptype" onchange="toggleReturnDate();"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>From City:</td>
-                                                    <td>
-                                                        <select name="from">
-                                                            <%
-                                                                if (airports != null) {
-                                                                    for (Airport airport : airports) {
-                                                            %>
-                                                            <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
-                                                            <%
-                                                                    }
-                                                                }
-                                                            %>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>To City:</td>
-                                                    <td>
-                                                        <select name="to">
-                                                            <%
-                                                                if (airports != null) {
-                                                                    for (Airport airport : airports) {
-                                                            %>
-                                                            <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
-                                                            <%
-                                                                    }
-                                                                }
-                                                            %>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Depart Date:</td>
-                                                    <td><input type="date" class="datepicker" name="departdate" /></td>
-                                                </tr>
-                                                <tr id="returnDateRow" style="display: none;">
-                                                    <td>Return Date:</td>
-                                                    <td><input type="date" class="datepicker" name="returndate" /></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Passengers</td>
-                                                    <td>
-                                                        <select name="passengers">
-                                                            <option></option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td><input type="submit" class="button1" value="Search Flights" /></td>
-                                                </tr>
-                                            </table>
-                                        </div>  
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="content">
+                            <form id="form_1" action="/PeregrineAirlines/SearchFlights">
+                                <input type="hidden" name="action" value="searchFlights" />
+                                <div class="radio">
+                                    <table>
+                                        <tr>
+                                            <td>From City:</td>
+                                            <td>
+                                                <select name="from">
+                                                    <%
+                                                        if (airports != null) {
+                                                            for (Airport airport : airports) {
+                                                    %>
+                                                    <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>To City:</td>
+                                            <td>
+                                                <select name="to">
+                                                    <%
+                                                        if (airports != null) {
+                                                            for (Airport airport : airports) {
+                                                    %>
+                                                    <option value="<%= airport.getAirportId()%>"><%= airport.getCity()%></option>
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>One way</td>
+                                            <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Round trip</td>
+                                            <td><input id="roundTripRadio" type="radio" name="triptype" onchange="toggleReturnDate();"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Depart Date:</td>
+                                            <td><input type="date" class="datepicker" name="departdate" /></td>
+                                        </tr>
+                                        <tr id="returnDateRow" style="display: none;">
+                                            <td>Return Date:</td>
+                                            <td><input type="date" class="datepicker" name="returndate" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Passengers</td>
+                                            <td>
+                                                <select name="passengers">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input type="submit" class="button1" value="Search Flights" /></td>
+                                        </tr>
+                                    </table>
+                                </div>  
+                            </form>
                         </div>
                     </article>
                 </div>
             </section>
             <!--content end-->
-            <script type="text/javascript"> Cufon.now();</script>
-            <script>
-                $(document).ready(function () {
-                    tabs.init();
-                });
-                jQuery(document).ready(function ($) {
-                    $('#form_1, #form_2, #form_3').jqTransform({imgPath: 'jqtransformplugin/img/'});
-                });
-                $(window).load(function () {
-                    $('#slider').nivoSlider({
-                        effect: 'fade', //Specify sets like: 'fold,fade,sliceDown, sliceDownLeft, sliceUp, sliceUpLeft, sliceUpDown, sliceUpDownLeft' 
-                        slices: 15,
-                        animSpeed: 500,
-                        pauseTime: 6000,
-                        startSlide: 0, //Set starting Slide (0 index)
-                        directionNav: false, //Next & Prev
-                        directionNavHide: false, //Only show on hover
-                        controlNav: false, //1,2,3...
-                        controlNavThumbs: false, //Use thumbnails for Control Nav
-                        controlNavThumbsFromRel: false, //Use image rel for thumbs
-                        controlNavThumbsSearch: '.jpg', //Replace this with...
-                        controlNavThumbsReplace: '_thumb.jpg', //...this in thumb Image src
-                        keyboardNav: true, //Use left & right arrows
-                        pauseOnHover: true, //Stop animation while hovering
-                        manualAdvance: false, //Force manual transitions
-                        captionOpacity: 1, //Universal caption opacity
-                        beforeChange: function () {
-                        },
-                        afterChange: function () {
-                        },
-                        slideshowEnd: function () {
-                        } //Triggers after all slides have been shown
-                    });
-                });
-            </script>
         </div>
     </body>
 </html>

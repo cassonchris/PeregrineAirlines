@@ -46,7 +46,7 @@
                     <ul id="menu">
                         <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="Safety.html"><span><span>CheckIn</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>CheckIn</span></span></a></li>
                         <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
@@ -55,20 +55,19 @@
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1">
+                <div class="wrapper pad1" style="height: 500px;">
                     <% if (purchasedTickets != null) {%>
-                    <h1 class="top">Thank you for your purchase</h1>
                     <h2 class="top">Order Summary</h2>
                     <table style="width: 100%;">
                         <tr>
-                            <th>Ticket Number</th>
-                            <th>Flight Number</th>
-                            <th>Seat</th>
-                            <th>Passenger First Name</th>
-                            <th>Passenger Last Name</th>
+                            <td><b>Ticket Number</b></td>
+                            <td><b>Flight Number</b></td>
+                            <td><b>Seat</b></td>
+                            <td><b>Passenger First Name</b></td>
+                            <td><b>Passenger Last Name</b></td>
                         </tr>
                         <%
-                                for (Ticket ticket : purchasedTickets) {
+                            for (Ticket ticket : purchasedTickets) {
                         %>
                         <tr>
                             <td><%= ticket.getTicketId()%></td>
@@ -84,11 +83,11 @@
                     <h1 class="top">You are checked in</h1>
                     <table style="width: 100%;">
                         <tr>
-                            <th>Ticket Number</th>
-                            <th>Flight Number</th>
-                            <th>Seat</th>
-                            <th>Passenger First Name</th>
-                            <th>Passenger Last Name</th>
+                            <td><b>Ticket Number</b></td>
+                            <td><b>Flight Number</b></td>
+                            <td><b>Seat</b></td>
+                            <td><b>Passenger First Name</b></td>
+                            <td><b>Passenger Last Name</b></td>
                         </tr>
                         <tr>
                             <td><%= checkedTicket.getTicketId()%></td>
@@ -103,11 +102,11 @@
                     <h1 class="top">Your ticket has been returned</h1>
                     <table style="width: 100%;">
                         <tr>
-                            <th>Ticket Number</th>
-                            <th>Flight Number</th>
-                            <th>Seat</th>
-                            <th>Passenger First Name</th>
-                            <th>Passenger Last Name</th>
+                            <td><b>Ticket Number</b></td>
+                            <td><b>Flight Number</b></td>
+                            <td><b>Seat</b></td>
+                            <td><b>Passenger First Name</b></td>
+                            <td><b>Passenger Last Name</b></td>
                         </tr>
                         <tr>
                             <td><%= returnedTicket.getTicketId()%></td>

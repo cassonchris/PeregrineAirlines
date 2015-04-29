@@ -40,11 +40,11 @@ public class ChangeFlight extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String nextUrl = "/jsp/changeFlight.jsp";
-        
+
         String action = request.getParameter("action");
-        
+
         if (action != null) {
             if (action.equalsIgnoreCase("cancelTicket")) {
                 String ticketIdString = request.getParameter("ticketId");
@@ -58,6 +58,8 @@ public class ChangeFlight extends HttpServlet {
                             request.setAttribute("returnedTicket", ticket);
                             nextUrl = "/jsp/confirmation.jsp";
                         } else {
+                            Collection<Airport> airports = PAModel.getAirports();
+                            request.setAttribute("airports", airports);
                             request.setAttribute("message", "Couldn't find ticket: " + ticketIdString);
                         }
                     }
@@ -76,7 +78,7 @@ public class ChangeFlight extends HttpServlet {
                         }
                     }
                 }
-                
+
                 String fromString = request.getParameter("from");
                 int from = 0;
                 if (fromString != null) {
@@ -134,7 +136,7 @@ public class ChangeFlight extends HttpServlet {
             Collection<Airport> airports = PAModel.getAirports();
             request.setAttribute("airports", airports);
         }
-        
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }

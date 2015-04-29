@@ -48,31 +48,26 @@
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <h2 class="top">Check In</h2>
-                <form action="/PeregrineAirlines/CheckIn">
-                    <input type="hidden" name="action" value="findTicket" />
-                    <table class="radio">
-                        <tr>
-                            <td>Confirmation Number*</td>
-                            <td><input type="text" name="ticketId" class="input" required /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" class="button1" value="Check In" /></td>
-                        </tr>
-                    </table>
-                </form>
+                <div class="wrapper pad1" style="height: 500px;">
+                    <article class="col1">
+                    <h2 class="top">Check In</h2>
+                    <form action="/PeregrineAirlines/CheckIn">
+                        <input type="hidden" name="action" value="findTicket" />
+                        <table class="radio">
+                            <tr>
+                                <td>Confirmation Number*</td>
+                                <td><input type="text" name="ticketId" class="input" required /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" class="button1" value="Check In" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                    </article>
+                </div>
             </section>
         </div>
         <!--content end-->
-        <script type="text/javascript"> Cufon.now();</script>
-        <script>
-            jQuery(document).ready(function ($) {
-                $('.form_5').jqTransform({imgPath: 'jqtransformplugin/img/'});
-            });
-            $(document).ready(function () {
-                tabs2.init();
-            });
-        </script>
     </body>
 </html>

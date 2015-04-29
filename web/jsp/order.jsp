@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.Collection"%>
 <%@page import="com.peregrineairlines.entities.Ticket"%>
 <!DOCTYPE html>
@@ -5,6 +6,7 @@
     <%
         Collection<Ticket> tickets = (Collection) request.getAttribute("tickets");
         Ticket exchangeTicket = (Ticket) request.getAttribute("exchangeTicket");
+        BigDecimal orderTotal = new BigDecimal(0);
     %>
     <head>
         <title>Book Flight</title>
@@ -12,7 +14,9 @@
         <link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-        <script type="text/javascript" src="js/jquery-1.5.2.js" ></script>
+        <link rel="stylesheet" href="css/jquery-ui.css" />
+        <script src="js/jquery-1.9.1.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/cufon-yui.js"></script>
         <script type="text/javascript" src="js/cufon-replace.js"></script>  
         <script type="text/javascript" src="js/Cabin_400.font.js"></script>
@@ -21,6 +25,11 @@
         <script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
         <script type="text/javascript" src="js/atooltip.jquery.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker({minDate: 0});
+            });
+        </script>
         <!--[if lt IE 9]>
         <script type="text/javascript" src="js/html5.js"></script>
         <style type="text/css">
@@ -39,11 +48,6 @@
                 <div class="wrapper">
                     <h1><a href="/PeregrineAirlines/Home" id="logo">Air lines</a></h1>
                     <span id="slogan">Fast, Frequent &amp; Safe Flights</span>
-                    <nav id="top_nav">
-                        <ul>
-                            <li><a href="/PeregrineAirlines/Home" class="nav1">Home</a></li>
-                        </ul>
-                    </nav>
                 </div>
                 <nav>
                     <ul id="menu">
@@ -64,75 +68,99 @@
                             <div class="tab-content" id="Flight">
                                 <form id="form_5" class="form_5" method="post" action="/PeregrineAirlines/Order">
                                     <input type="hidden" name="action" value="purchaseTickets" />
-                                    <% if (exchangeTicket != null) {%>
+                                    <% 
+                                        if (exchangeTicket != null) {
+                                            orderTotal = orderTotal.subtract(exchangeTicket.getPrice());
+                                    %>
                                     <h2 class="top">Exchange Ticket</h2>
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td><b>Seat</b></td>
+                                            <td><b>Flight</b></td>
+                                            <td><b>Date</b></td>
+                                            <td><b>Price</b></td>
+                                        </tr>
+                                        <input type="hidden" name="exchangeTicketId" value="<%= exchangeTicket.getTicketId()%>" />
+                                        <tr>
+                                            <td><%= exchangeTicket.getSeat()%></td>
+                                            <td><%= exchangeTicket.getFlight().getDepartingAirport().getCity()%> to <%= exchangeTicket.getFlight().getArrivingAirport().getCity()%></td>
+                                            <td><%= exchangeTicket.getFlight().getFlightDatetime()%></td>
+                                            <td>$<%= exchangeTicket.getPrice()%></td>
+                                        </tr>
+                                    </table>
+                                    <% }%>
+                                    <h2 class="top">Ticket Summary</h2>
                                     <div class="pad wrapper under">
                                         <table style="width: 100%;">
                                             <tr>
-                                                <th>Seat</th>
-                                                <th>Flight</th>
-                                                <th>Date</th>
+                                                <td><b>Seat</b></td>
+                                                <td><b>Flight</b></td>
+                                                <td><b>Date</b></td>
+                                                <td><b>Price</b></td>
+                                                <td><b>Passenger First Name</b></td>
+                                                <td><b>Passenger Last Name</b></td>
                                             </tr>
-                                            <input type="hidden" name="exchangeTicketId" value="<%= exchangeTicket.getTicketId()%>" />
+                                            <%
+                                                if (tickets != null) {
+                                                    int i = 0;
+                                            %>
+                                            <input type="hidden" name="ticketCount" value="<%= tickets.size()%>" />
+                                            <%
+                                                    for (Ticket ticket : tickets) {
+                                                        orderTotal = orderTotal.add(ticket.getPrice());
+                                            %>
+                                            <input type="hidden" name="ticket<%= i%>" value="<%= ticket.getTicketId()%>" />
                                             <tr>
-                                                <td><%= exchangeTicket.getSeat()%></td>
-                                                <td><%= exchangeTicket.getFlight().getDepartingAirport().getCity()%> to <%= exchangeTicket.getFlight().getArrivingAirport().getCity()%></td>
-                                                <td><%= exchangeTicket.getFlight().getFlightDatetime()%></td>
+                                                <td><%= ticket.getSeat()%></td>
+                                                <td><%= ticket.getFlight().getDepartingAirport().getCity()%> to <%= ticket.getFlight().getArrivingAirport().getCity()%></td>
+                                                <td><%= ticket.getFlight().getFlightDatetime()%></td>
+                                                <td>$<%= ticket.getPrice()%></td>
+                                                <td><input type="text" class="input" name="firstName<%= i%>" required="true" /></td>
+                                                <td><input type="text" class="input" name="lastName<%= i%>" required="true" /></td>
+                                            </tr>
+                                            <%
+                                                        i++;
+                                                    }
+                                                }
+                                            %>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Total $<%= orderTotal%></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                         </table>
-                                        <% }%>
-                                        <h2 class="top">Ticket Summary</h2>
-                                        <div class="pad wrapper under">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <th>Seat</th>
-                                                    <th>Flight</th>
-                                                    <th>Date</th>
-                                                    <th>Passenger First Name</th>
-                                                    <th>Passenger Last Name</th>
-                                                </tr>
-                                                <%
-                                                    if (tickets != null) {
-                                                        int i = 0;
-                                                %>
-                                                <input type="hidden" name="ticketCount" value="<%= tickets.size()%>" />
-                                                <%
-                                                    for (Ticket ticket : tickets) {
-                                                %>
-                                                <input type="hidden" name="ticket<%= i%>" value="<%= ticket.getTicketId()%>" />
-                                                <tr>
-                                                    <td><%= ticket.getSeat()%></td>
-                                                    <td><%= ticket.getFlight().getDepartingAirport().getCity()%> to <%= ticket.getFlight().getArrivingAirport().getCity()%></td>
-                                                    <td><%= ticket.getFlight().getFlightDatetime()%></td>
-                                                    <td><input type="text" class="input" name="firstName<%= i%>" required="true" /></td>
-                                                    <td><input type="text" class="input" name="lastName<%= i%>" required="true" /></td>
-                                                </tr>
-                                                <%
-                                                            i++;
-                                                        }
-                                                    }
-                                                %>
-                                            </table>
-                                        </div>
+                                    </div>
 
-                                        <h2 class="top">Payment Information</h2>
-                                        <div class="pad">
-                                            <div class="wrapper under">
-                                                <div class="row"><span class="left">First Name*</span>
-                                                    <input type="text" name="customerFirstName" class="input" required ></div>
-
-                                                <div class="row"><span class="left">Last Name*</span>
-                                                    <input type="text" name="customerLastName" class="input" required ></div>
-
-                                                <div class="row"><span class="left">Card Num*</span>
-                                                    <input type="text" class="input" pattern="[0-9]{16}" required ></div>
-                                                <div class = "row">	<span class = "left"> Expiry Date:</span>
-                                                    <input type="date" name="bday" max="2014-12-31"></div>
-                                                <div class = "row"><span class="left">CVV:</span> 							
-                                                    <input type="text" class= "input" name="_pin1" pattern="[0-9]{3}" required></div>
-                                            </div>	
-                                        </div>
-                                        <input type="submit" class="button1" value="Purchase Ticket(s)" />
+                                    <h2 class="top">Payment Information</h2>
+                                    <div class="pad">
+                                        <table>
+                                            <tr>
+                                                <td>First Name*</td>
+                                                <td><input type="text" name="customerFirstName" class="input" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Name*</td>
+                                                <td><input type="text" name="customerLastName" class="input" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Card Number*</td>
+                                                <td><input type="text" class="input" pattern="[0-9]{16}" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expiration Date*</td>
+                                                <td><input type="text" class="input datepicker" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>CVV*</td>
+                                                <td><input type="text" class="input" pattern="[0-9]{3}" required /></td>
+                                            </tr>
+                                        </table>	
+                                    </div>
+                                    <br />
+                                    <input type="submit" class="button1" value="Purchase Ticket(s)" />
                                 </form>
                             </div>
                         </div>

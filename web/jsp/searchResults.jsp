@@ -55,8 +55,8 @@
                 <nav>
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
-                        <li id="menu_active"><a href="Book.html"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="Checkin.html"><span><span>Checkin</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Checkin</span></span></a></li>
                         <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                         <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
                     </ul>
@@ -74,14 +74,13 @@
                         <input type="hidden" name="passengers" value="<%= passengers%>" />
                         <input type="hidden" name="exchangeTicketId" value="<%= exchangeTicketId%>" />
                         <% if (flights != null) {%>
-                        <div class="box2">
                             <h2 class="top">Flight Details</h2>
-                            <div style="background-color:lightblue; color:white; padding:20px;">
+                            <div>
                                 <table style="width: 100%;">
                                     <tr>
-                                        <th></th>
-                                        <th>Date and time</th>
-                                        <th>Price Range</th>
+                                        <td></td>
+                                        <td><b>Date and time</b></td>
+                                        <td><b>Price Range</b></td>
                                     </tr>
                                     <% for (Flight flight : flights) {%>
                                     <tr>
@@ -92,17 +91,16 @@
                                     <% }%>
                                 </table>
                             </div>
-                        </div>
                         <% }%>
                         <% if (returnFlights != null) {%>
                         <div class="box2">
                             <h2 class="top">Return Flight Details</h2>
-                            <div style="background-color:lightblue; color:white; padding:20px;">
+                            <div>
                                 <table style="width: 100%;">
                                     <tr>
-                                        <th></th>
-                                        <th>Date and time</th>
-                                        <th>Price Range</th>
+                                        <td></td>
+                                        <td><b>Date and time</b></td>
+                                        <td><b>Price Range</b></td>
                                     </tr>
                                     <% for (Flight flight : returnFlights) {%>
                                     <tr>
