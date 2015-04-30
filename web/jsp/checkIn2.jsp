@@ -59,14 +59,14 @@
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1" style="min-height: 500px;">
+                <div class="for_banners">
                     <article class="col1">
                         <h2 class="top">Confirm your Detail</h2>
                         <% if (ticket != null) {%>
-                        <form action="/PeregrineAirlines/CheckIn">
+                        <form id="form_1" action="/PeregrineAirlines/CheckIn">
                             <input type="hidden" name="action" value="checkIn" />
                             <input type="hidden" name="ticketId" value="<%= ticket.getTicketId()%>" />
-                            <div class="pad">
+                            <div class="radio">
                                 <table>
                                     <tr>
                                         <td>First Name:</td>
@@ -91,8 +91,11 @@
                                                 <option value="3">3 ($60)</option>
                                                 <option value="4">4 ($80)</option>
                                             </select>
-                                            <div id="totalPrice"></div>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><div id="totalPrice"></div></td>
                                     </tr>
                                     <tr>
                                         <td><input class="button1" type="reset" value="Cancel" /></td>
