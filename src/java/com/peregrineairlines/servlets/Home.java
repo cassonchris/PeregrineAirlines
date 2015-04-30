@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.peregrineairlines.servlets;
 
 import com.peregrineairlines.entities.Airport;
-import com.peregrineairlines.entities.PlaneModel;
 import com.peregrineairlines.model.PAModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,9 +31,11 @@ public class Home extends HttpServlet {
         
         String nextUrl = "/jsp/index.jsp";
         
+        // get the airports for the drop downs
         Collection<Airport> airports = PAModel.getAirports();
         request.setAttribute("airports", airports);
         
+        // forward to nextUrl
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }

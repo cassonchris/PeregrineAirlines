@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.peregrineairlines.servlets;
 
-import com.peregrineairlines.entities.PlaneModel;
 import com.peregrineairlines.entities.Ticket;
 import com.peregrineairlines.model.PAModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,17 +37,23 @@ public class Order extends HttpServlet {
 
         if (action != null) {
             if (action.equalsIgnoreCase("purchaseTickets")) {
+                
+                // validate parameters
                 String ticketCountString = request.getParameter("ticketCount");
                 if (ticketCountString != null) {
-                    ticketCountString = ticketCountString.replaceAll("\\D", "");
+                    ticketCountString = ticketCountString.replaceAll("\\D", ""); // remove all non digit
                     if (!ticketCountString.isEmpty()) {
                         int ticketCount = Integer.parseInt(ticketCountString);
                         List<Ticket> tickets = new ArrayList<>();
+                        
+                        // process each of the tickets
                         for (int i = 0; i < ticketCount; i++) {
                             String ticketId = request.getParameter("ticket" + i);
                             if (ticketId != null) {
-                                ticketId = ticketId.replaceAll("\\D", "");
+                                ticketId = ticketId.replaceAll("\\D", ""); // remove all non digit
                                 if (!ticketId.isEmpty()) {
+                                    
+                                    // create a placeholderTicket to pass to submitOrder
                                     Ticket placeholderTicket = new Ticket();
                                     placeholderTicket.setTicketId(Integer.parseInt(ticketId));
                                     placeholderTicket.setPassengerFirstname(request.getParameter("firstName" + i));
@@ -67,15 +66,19 @@ public class Order extends HttpServlet {
                         String customerFirstName = request.getParameter("customerFirstName");
                         String customerLastName = request.getParameter("customerLastName");
 
+                        // check for an exchange ticket
                         String exchangeTicketIdString = request.getParameter("exchangeTicketId");
                         if (exchangeTicketIdString != null) {
-                            exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", "");
+                            exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", ""); // remove all non digit
                             if (!exchangeTicketIdString.isEmpty()) {
                                 Integer exchangeTicketId = Integer.parseInt(exchangeTicketIdString);
+                                
+                                // return the exchange ticket
                                 PAModel.returnTicket(exchangeTicketId);
                             }
                         }
 
+                        // submit the order
                         Collection<Ticket> purchasedTickets = PAModel.submitOrder(tickets, customerFirstName, customerLastName);
                         request.setAttribute("purchasedTickets", purchasedTickets);
 
@@ -87,6 +90,7 @@ public class Order extends HttpServlet {
             }
         }
 
+        // forward to nextUrl
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }

@@ -2,12 +2,13 @@
 <%@page import="java.util.Collection"%>
 <%@page import="com.peregrineairlines.entities.Ticket"%>
 <!DOCTYPE html>
+<%
+    // get attributes set by servlet
+    Collection<Ticket> tickets = (Collection) request.getAttribute("tickets");
+    Ticket exchangeTicket = (Ticket) request.getAttribute("exchangeTicket");
+    BigDecimal orderTotal = new BigDecimal(0);
+%>
 <html lang="en">
-    <%
-        Collection<Ticket> tickets = (Collection) request.getAttribute("tickets");
-        Ticket exchangeTicket = (Ticket) request.getAttribute("exchangeTicket");
-        BigDecimal orderTotal = new BigDecimal(0);
-    %>
     <head>
         <title>Book Flight</title>
         <meta charset="utf-8">
@@ -27,7 +28,7 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker({minDate: 0});
+                $(".datepicker").datepicker({minDate: 0});// creates all the datepickers
             });
         </script>
         <!--[if lt IE 9]>
@@ -67,7 +68,7 @@
                             <div class="tab-content" id="Flight">
                                 <form id="form_5" class="form_5" method="post" action="/PeregrineAirlines/Order">
                                     <input type="hidden" name="action" value="purchaseTickets" />
-                                    <% 
+                                    <%
                                         if (exchangeTicket != null) {
                                             orderTotal = orderTotal.subtract(exchangeTicket.getPrice());
                                     %>
@@ -105,8 +106,8 @@
                                             %>
                                             <input type="hidden" name="ticketCount" value="<%= tickets.size()%>" />
                                             <%
-                                                    for (Ticket ticket : tickets) {
-                                                        orderTotal = orderTotal.add(ticket.getPrice());
+                                                for (Ticket ticket : tickets) {
+                                                    orderTotal = orderTotal.add(ticket.getPrice());
                                             %>
                                             <input type="hidden" name="ticket<%= i%>" value="<%= ticket.getTicketId()%>" />
                                             <tr>

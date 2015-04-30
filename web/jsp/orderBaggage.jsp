@@ -1,11 +1,12 @@
 <%@page import="java.util.Collection"%>
 <%@page import="com.peregrineairlines.entities.Ticket"%>
 <!DOCTYPE html>
+<%
+    // get attributes set by servlet
+    Integer numberOfBags = (Integer) request.getAttribute("numberOfBags");
+    String ticketId = (String) request.getAttribute("ticketId");
+%>
 <html lang="en">
-    <%
-        Integer numberOfBags = (Integer) request.getAttribute("numberOfBags");
-        String ticketId = (String) request.getAttribute("ticketId");
-    %>
     <head>
         <title>Book Flight</title>
         <meta charset="utf-8">
@@ -25,7 +26,7 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker({minDate: 0});
+                $(".datepicker").datepicker({minDate: 0});// creates all the datepickers
             });
         </script>
         <!--[if lt IE 9]>

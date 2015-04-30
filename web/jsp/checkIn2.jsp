@@ -1,9 +1,10 @@
 <%@page import="com.peregrineairlines.entities.Ticket"%>
 <!DOCTYPE html>
+<%
+    // get attributes set by servlet
+    Ticket ticket = (Ticket) request.getAttribute("ticket");
+%>
 <html lang="en">
-    <%
-        Ticket ticket = (Ticket) request.getAttribute("ticket");
-    %>
     <head>
         <title>CheckIn</title>
         <meta charset="utf-8">
@@ -20,6 +21,7 @@
         <script type="text/javascript" src="js/atooltip.jquery.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
         <script>
+            // this displays the price
             function displayPrice(num_bags)
             {
                 var divobj = document.getElementById('totalPrice');

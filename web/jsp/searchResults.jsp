@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
+    // get attributes set by servlet
     Collection<Flight> flights = (Collection) request.getAttribute("flights");
     Collection<Flight> returnFlights = (Collection) request.getAttribute("returnFlights");
     Integer exchangeTicketId = (Integer) request.getAttribute("exchangeTicketId");

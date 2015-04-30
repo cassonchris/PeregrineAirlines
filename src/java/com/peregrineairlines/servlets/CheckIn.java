@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.peregrineairlines.servlets;
 
 import com.peregrineairlines.entities.Ticket;
@@ -39,6 +34,8 @@ public class CheckIn extends HttpServlet {
 
         if (action != null) {
             if (action.equalsIgnoreCase("findTicket")) {
+                
+                // validate parameters
                 String ticketIdStr = request.getParameter("ticketId");
                 if (ticketIdStr != null) {
                     ticketIdStr = ticketIdStr.replaceAll("\\D", ""); // replace all non digit
@@ -46,6 +43,8 @@ public class CheckIn extends HttpServlet {
                         int ticketId = Integer.parseInt(ticketIdStr);
                         String passengerLastname = request.getParameter("passengerLastname");
                         if (passengerLastname != null) {
+                            
+                            // search for ticket
                             Ticket ticket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
                             if (ticket != null) {
                                 request.setAttribute("ticket", ticket);
@@ -62,21 +61,25 @@ public class CheckIn extends HttpServlet {
                 String ticketId = request.getParameter("ticketId");
                 request.setAttribute("ticketId", ticketId);
 
+                // validate parameters
                 String numberOfBagsString = request.getParameter("numberOfBags");
                 Integer numberOfBags = null;
                 if (numberOfBagsString != null) {
-                    numberOfBagsString = numberOfBagsString.replaceAll("\\D", "");
+                    numberOfBagsString = numberOfBagsString.replaceAll("\\D", ""); // remove all non digit
                     if (!numberOfBagsString.isEmpty()) {
                         numberOfBags = Integer.parseInt(numberOfBagsString);
                     }
                 }
                 if (numberOfBags != null && numberOfBags > 0) {
+                    // go to payment page
                     request.setAttribute("numberOfBags", numberOfBags);
                     nextUrl = "/jsp/orderBaggage.jsp";
                 } else {
                     if (ticketId != null) {
-                        ticketId = ticketId.replaceAll("\\D", "");
+                        ticketId = ticketId.replaceAll("\\D", ""); // remove all non digit
                         if (!ticketId.isEmpty()) {
+                            
+                            // mark ticket as checked in and go to confirmation
                             Ticket checkedTicket = PAModel.checkIn(Integer.parseInt(ticketId));
                             request.setAttribute("checkedTicket", checkedTicket);
                             nextUrl = "/jsp/confirmation.jsp";
@@ -86,6 +89,7 @@ public class CheckIn extends HttpServlet {
             }
         }
 
+        // forward to nextUrl
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }

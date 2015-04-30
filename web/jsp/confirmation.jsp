@@ -2,6 +2,7 @@
 <%@page import="com.peregrineairlines.entities.Ticket"%>
 <!DOCTYPE html>
 <%
+    // get attributes set by servlet
     Collection<Ticket> purchasedTickets = (Collection) request.getAttribute("purchasedTickets");
     Ticket checkedTicket = (Ticket) request.getAttribute("checkedTicket");
     Ticket returnedTicket = (Ticket) request.getAttribute("returnedTicket");

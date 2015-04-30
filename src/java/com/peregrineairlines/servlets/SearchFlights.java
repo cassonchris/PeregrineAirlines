@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.peregrineairlines.servlets;
 
 import com.peregrineairlines.entities.Flight;
 import com.peregrineairlines.entities.Ticket;
 import com.peregrineairlines.model.PAModel;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,22 +42,28 @@ public class SearchFlights extends HttpServlet {
 
         if (action != null) {
             if (action.equalsIgnoreCase("searchFlights")) {
+                
+                // process from
                 String fromString = request.getParameter("from");
                 int from = 0;
                 if (fromString != null) {
-                    fromString = fromString.replaceAll("\\D", "");
+                    fromString = fromString.replaceAll("\\D", ""); // remove all non digit
                     if (!fromString.isEmpty()) {
                         from = Integer.parseInt(fromString);
                     }
                 }
+                
+                // process to
                 String toString = request.getParameter("to");
                 int to = 0;
                 if (toString != null) {
-                    toString = toString.replaceAll("\\D", "");
+                    toString = toString.replaceAll("\\D", ""); // remove all non digit
                     if (!toString.isEmpty()) {
                         to = Integer.parseInt(toString);
                     }
                 }
+                
+                // process depart date
                 String departDateString = request.getParameter("departdate");
                 Date departDate = null;
                 try {
@@ -71,6 +71,8 @@ public class SearchFlights extends HttpServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(SearchFlights.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                // process return date
                 String returnDateString = request.getParameter("returndate");
                 Date returnDate = null;
                 try {
@@ -79,49 +81,57 @@ public class SearchFlights extends HttpServlet {
                     Logger.getLogger(SearchFlights.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                // process passenger count
                 String passengersString = request.getParameter("passengers");
                 request.setAttribute("passengers", passengersString);
                 int passengers = 0;
                 if (passengersString != null) {
-                    passengersString = passengersString.replaceAll("\\D", "");
+                    passengersString = passengersString.replaceAll("\\D", ""); // remove all non digit
                     if (!passengersString.isEmpty()) {
                         passengers = Integer.parseInt(passengersString);
                     }
                 }
 
                 if (departDate != null) {
+                    // search for flights
                     Collection<Flight> flights = PAModel.searchFlights(to, from, departDate, passengers);
                     request.setAttribute("flights", flights);
                 }
 
                 if (returnDate != null) {
+                    // search for return flights
                     Collection<Flight> returnFlights = PAModel.searchFlights(from, to, returnDate, passengers);
                     request.setAttribute("returnFlights", returnFlights);
                 }
 
                 nextUrl = "/jsp/searchResults.jsp";
             } else if (action.equalsIgnoreCase("selectFlight")) {
+                
+                // process flightId
                 String flight = request.getParameter("flight");
                 Integer flightId = null;
                 if (flight != null) {
-                    flight = flight.replaceAll("\\D", "");
+                    flight = flight.replaceAll("\\D", ""); // remove all non digit
                     if (!flight.isEmpty()) {
                         flightId = Integer.parseInt(flight);
                     }
                 }
+                
+                // process returnFlightId
                 String returnFlight = request.getParameter("returnFlight");
                 Integer returnFlightId = null;
                 if (returnFlight != null) {
-                    returnFlight = returnFlight.replaceAll("\\D", "");
+                    returnFlight = returnFlight.replaceAll("\\D", ""); // remove all non digit
                     if (!returnFlight.isEmpty()) {
                         returnFlightId = Integer.parseInt(returnFlight);
                     }
                 }
 
+                // process number of passengers
                 String passengersString = request.getParameter("passengers");
                 int passengers = 0;
                 if (passengersString != null) {
-                    passengersString = passengersString.replaceAll("\\D", "");
+                    passengersString = passengersString.replaceAll("\\D", ""); // remove all non digit
                     if (!passengersString.isEmpty()) {
                         passengers = Integer.parseInt(passengersString);
                     }
@@ -129,12 +139,14 @@ public class SearchFlights extends HttpServlet {
 
                 Collection<Ticket> tickets = new ArrayList<>();
                 if (flightId != null) {
+                    // get the requested tickets
                     Collection<Ticket> departTickets = PAModel.getAvailableTicketsByFlightId(flightId, passengers);
                     if (departTickets != null) {
                         tickets.addAll(departTickets);
                     }
                 }
                 if (returnFlightId != null) {
+                    // get the requested tickets
                     Collection<Ticket> returnTickets = PAModel.getAvailableTicketsByFlightId(returnFlightId, passengers);
                     if (returnTickets != null) {
                         tickets.addAll(returnTickets);
@@ -142,9 +154,10 @@ public class SearchFlights extends HttpServlet {
                 }
                 request.setAttribute("tickets", tickets);
                 
+                // check for exchange ticket
                 String exchangeTicketIdString = request.getParameter("exchangeTicketId");
                 if (exchangeTicketIdString != null) {
-                    exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", "");
+                    exchangeTicketIdString = exchangeTicketIdString.replaceAll("\\D", ""); // remove all non digit
                     if (!exchangeTicketIdString.isEmpty()) {
                         Integer exchangeTicketId = Integer.parseInt(exchangeTicketIdString);
                         Ticket exchangeTicket = PAModel.getTicketById(exchangeTicketId);
@@ -153,15 +166,10 @@ public class SearchFlights extends HttpServlet {
                 }
 
                 nextUrl = "/jsp/order.jsp";
-            } else if (action.equalsIgnoreCase("changeFlightSearch")) {
-                // TODO
-                nextUrl = "/jsp/changeFlight.jsp";
-            } else if (action.equalsIgnoreCase("changeFlightSelect")) {
-                // TODO
-                nextUrl = "/jsp/changeFlight.jsp";
             }
         }
 
+        // forward to nextUrl
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }

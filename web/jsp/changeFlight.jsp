@@ -2,6 +2,7 @@
 <%@page import="java.util.Collection"%>
 <!DOCTYPE html>
 <%
+    // get attributes set by servlet
     Collection<Airport> airports = (Collection) request.getAttribute("airports");
     String message = (String) request.getAttribute("message");
 %>
@@ -25,9 +26,10 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker({minDate: 0});
+                $(".datepicker").datepicker({minDate: 0});// create the datepickers
             });
 
+            // this toggles the return date field depending on whether round trip is selected
             function toggleReturnDate() {
                 if (document.getElementById("roundTripRadio").checked) {
                     document.getElementById("returnDateRow").style.display = "table-row";
@@ -36,6 +38,7 @@
                 }
             }
 
+            // this toggles the search div depending on whether change flight is selected
             function toggleSearchDiv() {
                 if (document.getElementById("changeFlightRadio").checked) {
                     document.getElementById("searchDiv").style.display = "block";

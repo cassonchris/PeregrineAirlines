@@ -2,6 +2,7 @@
 <%@page import="com.peregrineairlines.entities.Airport"%>
 <!DOCTYPE html>
 <%
+    // get attributes set by servlet
     Collection<Airport> airports = (Collection) request.getAttribute("airports");
 %>
 <html lang="en">
@@ -24,9 +25,10 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker({minDate: 0});
+                $(".datepicker").datepicker({minDate: 0}); // creates all the datepickers
             });
 
+            // this toggles the return date field depending on whether round trip is selected
             function toggleReturnDate() {
                 if (document.getElementById("roundTripRadio").checked) {
                     document.getElementById("returnDateRow").style.display = "table-row";

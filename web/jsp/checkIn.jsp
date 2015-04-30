@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%
+    // get attributes set by servlet
     String message = (String) request.getAttribute("message");
 %>
 <html lang="en">

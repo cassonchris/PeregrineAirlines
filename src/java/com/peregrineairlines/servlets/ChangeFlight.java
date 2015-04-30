@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.peregrineairlines.servlets;
 
 import com.peregrineairlines.entities.Airport;
@@ -47,19 +42,28 @@ public class ChangeFlight extends HttpServlet {
 
         if (action != null) {
             if (action.equalsIgnoreCase("cancelTicket")) {
+                
+                // validate parameters
                 String ticketIdString = request.getParameter("ticketId");
                 if (ticketIdString != null) {
-                    ticketIdString = ticketIdString.replaceAll("\\D", "");
+                    ticketIdString = ticketIdString.replaceAll("\\D", ""); // remove all non digit
                     if (!ticketIdString.isEmpty()) {
                         Integer ticketId = Integer.parseInt(ticketIdString);
                         String passengerLastname = request.getParameter("passengerLastname");
                         if (passengerLastname != null) {
+                            
+                            // search for ticket
                             Ticket ticket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
                             if (ticket != null && ticket.getTicketOrder() != null) {
+                                
+                                // return the ticket
                                 PAModel.returnTicket(ticketId);
                                 request.setAttribute("returnedTicket", ticket);
+                                
+                                // go to confirmation
                                 nextUrl = "/jsp/confirmation.jsp";
                             } else {
+                                // get airports for drop downs and set message
                                 Collection<Airport> airports = PAModel.getAirports();
                                 request.setAttribute("airports", airports);
                                 request.setAttribute("message", "Could not find ticket");
@@ -68,13 +72,17 @@ public class ChangeFlight extends HttpServlet {
                     }
                 }
             } else if (action.equalsIgnoreCase("changeFlight")) {
+                
+                // validate parameters
                 String ticketIdString = request.getParameter("ticketId");
                 if (ticketIdString != null) {
-                    ticketIdString = ticketIdString.replaceAll("\\D", "");
+                    ticketIdString = ticketIdString.replaceAll("\\D", ""); // remove all non digit
                     if (!ticketIdString.isEmpty()) {
                         Integer ticketId = Integer.parseInt(ticketIdString);
                         String passengerLastname = request.getParameter("passengerLastname");
                         if (passengerLastname != null) {
+                            
+                            // search for ticket
                             Ticket exchangeTicket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
                             if (exchangeTicket != null) {
                                 request.setAttribute("exchangeTicketId", exchangeTicket.getTicketId());
@@ -85,22 +93,27 @@ public class ChangeFlight extends HttpServlet {
                     }
                 }
 
+                // process from parameter
                 String fromString = request.getParameter("from");
                 int from = 0;
                 if (fromString != null) {
-                    fromString = fromString.replaceAll("\\D", "");
+                    fromString = fromString.replaceAll("\\D", ""); // remove all non digit
                     if (!fromString.isEmpty()) {
                         from = Integer.parseInt(fromString);
                     }
                 }
+                
+                // process to parameter
                 String toString = request.getParameter("to");
                 int to = 0;
                 if (toString != null) {
-                    toString = toString.replaceAll("\\D", "");
+                    toString = toString.replaceAll("\\D", ""); // remove all non digit
                     if (!toString.isEmpty()) {
                         to = Integer.parseInt(toString);
                     }
                 }
+                
+                // process depart date
                 String departDateString = request.getParameter("departdate");
                 Date departDate = null;
                 try {
@@ -108,6 +121,8 @@ public class ChangeFlight extends HttpServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(SearchFlights.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                // process return date
                 String returnDateString = request.getParameter("returndate");
                 Date returnDate = null;
                 try {
@@ -116,22 +131,25 @@ public class ChangeFlight extends HttpServlet {
                     Logger.getLogger(SearchFlights.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                // process passenger count
                 String passengersString = request.getParameter("passengers");
                 request.setAttribute("passengers", passengersString);
                 int passengers = 0;
                 if (passengersString != null) {
-                    passengersString = passengersString.replaceAll("\\D", "");
+                    passengersString = passengersString.replaceAll("\\D", ""); // remove all non digit
                     if (!passengersString.isEmpty()) {
                         passengers = Integer.parseInt(passengersString);
                     }
                 }
 
                 if (departDate != null) {
+                    // search for flights
                     Collection<Flight> flights = PAModel.searchFlights(from, to, departDate, passengers);
                     request.setAttribute("flights", flights);
                 }
 
                 if (returnDate != null) {
+                    // search for return flights
                     Collection<Flight> returnFlights = PAModel.searchFlights(to, from, returnDate, passengers);
                     request.setAttribute("returnFlights", returnFlights);
                 }
@@ -139,10 +157,12 @@ public class ChangeFlight extends HttpServlet {
                 nextUrl = "/jsp/searchResults.jsp";
             }
         } else {
+            // get airports for drop downs
             Collection<Airport> airports = PAModel.getAirports();
             request.setAttribute("airports", airports);
         }
 
+        // forward to nextUrl
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }
