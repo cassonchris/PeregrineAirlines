@@ -56,16 +56,15 @@
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Checkin</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1" style="height: 500px;">
+                <div class="wrapper pad1" style="min-height: 500px;">
                 <% if (message != null) {%>
                 <h3 class="top"><%= message%></h3>
                 <% }%>
@@ -74,23 +73,29 @@
                         <input type="hidden" name="passengers" value="<%= passengers%>" />
                         <input type="hidden" name="exchangeTicketId" value="<%= exchangeTicketId%>" />
                         <% if (flights != null) {%>
+                        <div class="box2">
                             <h2 class="top">Flight Details</h2>
                             <div>
                                 <table style="width: 100%;">
                                     <tr>
                                         <td></td>
+                                        <td><b>Flight</b></td>
                                         <td><b>Date and time</b></td>
+                                        <td><b>Plane Model</b></td>
                                         <td><b>Price Range</b></td>
                                     </tr>
                                     <% for (Flight flight : flights) {%>
                                     <tr>
                                         <td><input type="radio" name="flight" value="<%= flight.getFlightId()%>" /></td>
+                                        <td><%= flight.getDepartingAirport().getCity()%> to <%= flight.getArrivingAirport().getCity()%></td>
                                         <td><%= flight.getFlightDatetime()%></td>
+                                        <td><%= flight.getPlaneModel().getName()%></td>
                                         <td><%= flight.getCheapestTicketPrice()%> - <%= flight.getHighestTicketPrice()%></td>
                                     </tr>
                                     <% }%>
                                 </table>
                             </div>
+                        </div>
                         <% }%>
                         <% if (returnFlights != null) {%>
                         <div class="box2">
@@ -99,13 +104,17 @@
                                 <table style="width: 100%;">
                                     <tr>
                                         <td></td>
+                                        <td><b>Flight</b></td>
                                         <td><b>Date and time</b></td>
+                                        <td><b>Plane Model</b></td>
                                         <td><b>Price Range</b></td>
                                     </tr>
                                     <% for (Flight flight : returnFlights) {%>
                                     <tr>
                                         <td><input type="radio" name="returnFlight" value="<%= flight.getFlightId()%>" /></td>
+                                        <td><%= flight.getDepartingAirport().getCity()%> to <%= flight.getArrivingAirport().getCity()%></td>
                                         <td><%= flight.getFlightDatetime()%></td>
+                                        <td><%= flight.getPlaneModel().getName()%></td>
                                         <td><%= flight.getCheapestTicketPrice()%> - <%= flight.getHighestTicketPrice()%></td>
                                     </tr>
                                     <% } %>

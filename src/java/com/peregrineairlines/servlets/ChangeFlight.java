@@ -52,15 +52,18 @@ public class ChangeFlight extends HttpServlet {
                     ticketIdString = ticketIdString.replaceAll("\\D", "");
                     if (!ticketIdString.isEmpty()) {
                         Integer ticketId = Integer.parseInt(ticketIdString);
-                        Ticket ticket = PAModel.getTicketById(ticketId);
-                        if (ticket != null && ticket.getTicketOrder() != null) {
-                            PAModel.returnTicket(ticketId);
-                            request.setAttribute("returnedTicket", ticket);
-                            nextUrl = "/jsp/confirmation.jsp";
-                        } else {
-                            Collection<Airport> airports = PAModel.getAirports();
-                            request.setAttribute("airports", airports);
-                            request.setAttribute("message", "Couldn't find ticket: " + ticketIdString);
+                        String passengerLastname = request.getParameter("passengerLastname");
+                        if (passengerLastname != null) {
+                            Ticket ticket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
+                            if (ticket != null && ticket.getTicketOrder() != null) {
+                                PAModel.returnTicket(ticketId);
+                                request.setAttribute("returnedTicket", ticket);
+                                nextUrl = "/jsp/confirmation.jsp";
+                            } else {
+                                Collection<Airport> airports = PAModel.getAirports();
+                                request.setAttribute("airports", airports);
+                                request.setAttribute("message", "Could not find ticket");
+                            }
                         }
                     }
                 }
@@ -70,11 +73,14 @@ public class ChangeFlight extends HttpServlet {
                     ticketIdString = ticketIdString.replaceAll("\\D", "");
                     if (!ticketIdString.isEmpty()) {
                         Integer ticketId = Integer.parseInt(ticketIdString);
-                        Ticket exchangeTicket = PAModel.getTicketById(ticketId);
-                        if (exchangeTicket != null) {
-                            request.setAttribute("exchangeTicketId", exchangeTicket.getTicketId());
-                        } else {
-                            request.setAttribute("message", "Couldn't find ticket: " + ticketIdString);
+                        String passengerLastname = request.getParameter("passengerLastname");
+                        if (passengerLastname != null) {
+                            Ticket exchangeTicket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
+                            if (exchangeTicket != null) {
+                                request.setAttribute("exchangeTicketId", exchangeTicket.getTicketId());
+                            } else {
+                                request.setAttribute("message", "Couldn't find ticket: " + ticketIdString);
+                            }
                         }
                     }
                 }

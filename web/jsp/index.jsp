@@ -60,8 +60,7 @@
                         <li><li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li><li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
                         <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
@@ -117,11 +116,11 @@
                                         </tr>
                                         <tr>
                                             <td>Depart Date:</td>
-                                            <td><input type="date" class="datepicker" name="departdate" /></td>
+                                            <td><input type="date" class="datepicker input" name="departdate" /></td>
                                         </tr>
                                         <tr id="returnDateRow" style="display: none;">
                                             <td>Return Date:</td>
-                                            <td><input type="date" class="datepicker" name="returndate" /></td>
+                                            <td><input type="date" class="datepicker input" name="returndate" /></td>
                                         </tr>
                                         <tr>
                                             <td>Passengers</td>

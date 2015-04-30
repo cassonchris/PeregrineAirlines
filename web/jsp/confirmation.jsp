@@ -46,18 +46,17 @@
                     <ul id="menu">
                         <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>CheckIn</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1" style="height: 500px;">
+                <div class="wrapper pad1" style="min-height: 500px;">
                     <% if (purchasedTickets != null) {%>
-                    <h2 class="top">Order Summary</h2>
+                    <h2 class="top">Order Confirmation</h2>
                     <table style="width: 100%;">
                         <tr>
                             <td><b>Ticket Number</b></td>
@@ -80,7 +79,7 @@
                     </table>
                     <% }%>
                     <% if (checkedTicket != null) {%>
-                    <h1 class="top">You are checked in</h1>
+                    <h2 class="top">You are checked in</h2>
                     <table style="width: 100%;">
                         <tr>
                             <td><b>Ticket Number</b></td>
@@ -121,14 +120,5 @@
             </section>
         </div>
         <!--content end-->
-        <script type="text/javascript"> Cufon.now();</script>
-        <script>
-            jQuery(document).ready(function ($) {
-                $('.form_5').jqTransform({imgPath: 'jqtransformplugin/img/'});
-            });
-            $(document).ready(function () {
-                tabs2.init();
-            });
-        </script>
     </body>
 </html>

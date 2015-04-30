@@ -44,12 +44,15 @@ public class CheckIn extends HttpServlet {
                     ticketIdStr = ticketIdStr.replaceAll("\\D", ""); // replace all non digit
                     if (!ticketIdStr.isEmpty()) {
                         int ticketId = Integer.parseInt(ticketIdStr);
-                        Ticket ticket = PAModel.getTicketById(ticketId);
-                        if (ticket != null) {
-                            request.setAttribute("ticket", ticket);
-                            nextUrl = "/jsp/checkIn2.jsp";
-                        } else {
-                            request.setAttribute("message", "Could not find ticket");
+                        String passengerLastname = request.getParameter("passengerLastname");
+                        if (passengerLastname != null) {
+                            Ticket ticket = PAModel.getTicketByIdAndPassengerLastname(ticketId, passengerLastname);
+                            if (ticket != null) {
+                                request.setAttribute("ticket", ticket);
+                                nextUrl = "/jsp/checkIn2.jsp";
+                            } else {
+                                request.setAttribute("message", "Could not find ticket");
+                            }
                         }
                     } else {
                         request.setAttribute("message", "Ticket Id is invalid");
@@ -74,8 +77,7 @@ public class CheckIn extends HttpServlet {
                     if (ticketId != null) {
                         ticketId = ticketId.replaceAll("\\D", "");
                         if (!ticketId.isEmpty()) {
-                            PAModel.checkIn(Integer.parseInt(ticketId));
-                            Ticket checkedTicket = PAModel.getTicketById(Integer.parseInt(ticketId));
+                            Ticket checkedTicket = PAModel.checkIn(Integer.parseInt(ticketId));
                             request.setAttribute("checkedTicket", checkedTicket);
                             nextUrl = "/jsp/confirmation.jsp";
                         }

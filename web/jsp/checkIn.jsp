@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%
+    String message = (String) request.getAttribute("message");
+%>
 <html lang="en">
     <head>
         <title>CheckIn</title>
@@ -39,31 +42,40 @@
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>CheckIn</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1" style="height: 500px;">
+                <div class="for_banners">
                     <article class="col1">
-                    <h2 class="top">Check In</h2>
-                    <form action="/PeregrineAirlines/CheckIn">
-                        <input type="hidden" name="action" value="findTicket" />
-                        <table class="radio">
-                            <tr>
-                                <td>Confirmation Number*</td>
-                                <td><input type="text" name="ticketId" class="input" required /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><input type="submit" class="button1" value="Check In" /></td>
-                            </tr>
-                        </table>
-                    </form>
+                        <div class="content">
+                            <% if (message != null) {%>
+                            <h3 class="top"><%= message%></h3>
+                            <% }%>
+                            <form id="form_1" action="/PeregrineAirlines/CheckIn">
+                                <input type="hidden" name="action" value="findTicket" />
+                                <div class="radio">
+                                    <table>
+                                        <tr>
+                                            <td>Confirmation Number*</td>
+                                            <td><input type="text" name="ticketId" class="input" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Passenger Last Name*</td>
+                                            <td><input type="text" name="passengerLastname" class="input" required /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input type="submit" class="button1" value="Check In" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
                     </article>
                 </div>
             </section>

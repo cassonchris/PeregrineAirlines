@@ -54,8 +54,7 @@
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
                         <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contact Us</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
@@ -151,7 +150,18 @@
                                             </tr>
                                             <tr>
                                                 <td>Expiration Date*</td>
-                                                <td><input type="text" class="input datepicker" required /></td>
+                                                <td>
+                                                    <select>
+                                                        <% for (int i = 1; i <= 12; i++) {%>
+                                                        <option value="<%= i%>"><%= i%></option>
+                                                        <% }%>
+                                                    </select>
+                                                    <select>
+                                                        <% for (int i = 2015; i <= 2025; i++) {%>
+                                                        <option value="<%= i%>"><%= i%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>CVV*</td>

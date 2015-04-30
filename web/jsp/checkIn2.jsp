@@ -51,17 +51,16 @@
                     <ul id="menu">
                         <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book</span></span></a></li>
-                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>CheckIn</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
-                        <li class="end"><a href="Contacts.html"><span><span>Contacts</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
+                        <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
             </header>
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1">
-                    <div class="box10">
+                <div class="wrapper pad1" style="min-height: 500px;">
+                    <article class="col1">
                         <h2 class="top">Confirm your Detail</h2>
                         <% if (ticket != null) {%>
                         <form action="/PeregrineAirlines/CheckIn">
@@ -96,11 +95,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td>
-                                            <input class="button1" type="reset" value="Cancel" />
-                                            <input class="button1" type="submit" value="Check In" />
-                                        </td>
+                                        <td><input class="button1" type="reset" value="Cancel" /></td>
+                                        <td><input class="button1" type="submit" value="Check In" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -108,11 +104,10 @@
                         <% } else { %>
                         <h2 class="top">TODO - The user shouldn't be seeing this</h2>
                         <% }%>
-                    </div>
+                    </article>
                 </div>
             </section>
             <!--content end-->
         </div>
-        <script type="text/javascript"> Cufon.now();</script>
     </body>
 </html>

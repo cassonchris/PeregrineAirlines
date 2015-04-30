@@ -90,12 +90,12 @@ public class SearchFlights extends HttpServlet {
                 }
 
                 if (departDate != null) {
-                    Collection<Flight> flights = PAModel.searchFlights(from, to, departDate, passengers);
+                    Collection<Flight> flights = PAModel.searchFlights(to, from, departDate, passengers);
                     request.setAttribute("flights", flights);
                 }
 
                 if (returnDate != null) {
-                    Collection<Flight> returnFlights = PAModel.searchFlights(to, from, returnDate, passengers);
+                    Collection<Flight> returnFlights = PAModel.searchFlights(from, to, returnDate, passengers);
                     request.setAttribute("returnFlights", returnFlights);
                 }
 
