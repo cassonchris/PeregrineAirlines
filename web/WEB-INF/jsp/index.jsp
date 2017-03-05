@@ -68,14 +68,13 @@
                 <div class="for_banners">
                     <article class="col1">
                         <div class="content">
-                            <form action="/PeregrineAirlines/SearchFlights">
-                                <input type="hidden" name="action" value="searchFlights" />
+                            <form:form modelAttribute="flightSearch" method="POST" action="/PeregrineAirlines/search">
                                 <div class="radio">
                                     <table>
                                         <tr>
                                             <td>From City:</td>
                                             <td>
-                                                <form:select path="airports">
+                                                <form:select path="departingAirport">
                                                     <form:options items="${airports}" itemLabel="city" itemValue="airportId" />
                                                 </form:select>
                                             </td>
@@ -83,14 +82,14 @@
                                         <tr>
                                             <td>To City:</td>
                                             <td>
-                                                <form:select path="airports">
+                                                <form:select path="arrivingAirport">
                                                     <form:options items="${airports}" itemLabel="city" itemValue="airportId" />
                                                 </form:select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>One way</td>
-                                            <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked></td>
+                                            <td><input type="radio" name="triptype" onchange="toggleReturnDate();" checked="true" /></td>
                                         </tr>
                                         <tr>
                                             <td>Round trip</td>
@@ -98,11 +97,11 @@
                                         </tr>
                                         <tr>
                                             <td>Depart Date:</td>
-                                            <td><input type="date" class="datepicker input" name="departdate" /></td>
+                                            <td><form:input path="departDate" type="date" class="datepicker input" /></td>
                                         </tr>
                                         <tr id="returnDateRow" style="display: none;">
                                             <td>Return Date:</td>
-                                            <td><input type="date" class="datepicker input" name="returndate" /></td>
+                                            <td><form:input path="returnDate" type="date" class="datepicker input" /></td>
                                         </tr>
                                         <tr>
                                             <td>Passengers</td>
@@ -122,7 +121,7 @@
                                         </tr>
                                     </table>
                                 </div>  
-                            </form>
+                            </form:form>
                         </div>
                     </article>
                 </div>
