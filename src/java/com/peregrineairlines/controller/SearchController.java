@@ -1,6 +1,7 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Flight;
+import com.peregrineairlines.entities.Ticket;
 import com.peregrineairlines.model.PAModel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.peregrineairlines.formmodel.FlightSearch;
+import java.math.BigDecimal;
 
 /**
  *
@@ -52,9 +54,32 @@ public class SearchController {
             );
         }    
                 
+        model.addAttribute("flightSearch", flightSearch);
         model.addAttribute("flights", flights);
         model.addAttribute("returnFlights", returnFlights);
         
         return "searchResults";
+    }
+    
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    public String orderTickets(@ModelAttribute("flightSearch") FlightSearch flightSearch, Model model) {
+        Collection<Ticket> tickets = new ArrayList<>();
+        if (flightSearch.getFlightId() != null) {
+            tickets.addAll(PAModel.getAvailableTicketsByFlightId(flightSearch.getFlightId(), flightSearch.getPassengers()));
+        }
+        
+        if (flightSearch.getReturnFlightId() != null) {
+            tickets.addAll(PAModel.getAvailableTicketsByFlightId(flightSearch.getReturnFlightId(), flightSearch.getPassengers()));
+        }
+        
+        BigDecimal orderTotal = BigDecimal.ZERO;
+        for (Ticket t : tickets) {
+            orderTotal = orderTotal.add(t.getPrice());
+        }
+        
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("orderTotal", orderTotal);
+        
+        return "order";
     }
 }

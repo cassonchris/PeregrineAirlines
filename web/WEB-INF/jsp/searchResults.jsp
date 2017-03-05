@@ -50,7 +50,8 @@
             <!--content -->
             <section id="content">
                 <div class="wrapper pad1" style="min-height: 500px;">
-                    <form action="/PeregrineAirlines/SearchFlights">
+                    <form:form modelAttribute="flightSearch" action="/PeregrineAirlines/order">
+                        <form:input type="hidden" path="passengers" value="${flightSearch.passengers}" />
                         <div class="box2">
                             <h2 class="top">Flight Details</h2>
                             <div>
@@ -64,7 +65,7 @@
                                     </tr>
                                     <c:forEach var="flight" items="${flights}">
                                     <tr>
-                                        <td><input type="radio" name="flight" value="${flight.flightId}" /></td>
+                                        <td><form:radiobutton path="flightId" value="${flight.flightId}" /></td>
                                         <td>${flight.departingAirport.city} to ${flight.arrivingAirport.city}</td>
                                         <td>${flight.flightDatetime}</td>
                                         <td>${flight.planeModel.name}</td>
@@ -87,7 +88,7 @@
                                     </tr>
                                     <c:forEach var="flight" items="${returnFlights}">
                                     <tr>
-                                        <td><input type="radio" name="returnFlight" value="${flight.flightId}" /></td>
+                                        <td><form:radiobutton path="returnFlightId" value="${flight.flightId}" /></td>
                                         <td>${flight.departingAirport.city} to ${flight.arrivingAirport.city}</td>
                                         <td>${flight.flightDatetime}</td>
                                         <td>${flight.planeModel.name}</td>
@@ -98,7 +99,7 @@
                             </div>
                         </div>
                         <input class="button1" type="submit" value="Select Flight(s)" />
-                    </form>
+                    </form:form>
                 </div>
             </section>
         </div>

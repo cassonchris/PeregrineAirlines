@@ -13,6 +13,8 @@ public class FlightSearch {
     private Date departDate;
     private Date returnDate;
     private Integer passengers;
+    private Integer flightId;
+    private Integer returnFlightId;
 
     //<editor-fold defaultstate="collapsed" desc="getters and setters">
     public Integer getDepartingAirport() {
@@ -53,6 +55,22 @@ public class FlightSearch {
     
     public void setPassengers(Integer passengers) {
         this.passengers = passengers;
+    }
+
+    public Integer getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(Integer flightId) {
+        this.flightId = flightId;
+    }
+
+    public Integer getReturnFlightId() {
+        return returnFlightId;
+    }
+
+    public void setReturnFlightId(Integer returnFlightId) {
+        this.returnFlightId = returnFlightId;
     }
     //</editor-fold>
 }
