@@ -59,7 +59,7 @@
                     <div class="tabs2">
                         <div class="content" style="width: 100%;">
                             <div class="tab-content" id="Flight">
-                                <form id="form_5" class="form_5" method="post" action="/PeregrineAirlines/Order">
+                                <form:form modelAttribute="orderSummary" id="form_5" class="form_5" method="post" action="/PeregrineAirlines/submitOrder">
                                     <h2 class="top">Ticket Summary</h2>
                                     <div class="pad wrapper under">
                                         <table style="width: 100%;">
@@ -71,16 +71,16 @@
                                                 <td><b>Passenger First Name</b></td>
                                                 <td><b>Passenger Last Name</b></td>
                                             </tr>
-                                            <input type="hidden" name="ticketCount" value="${tickets.size()}" />
-                                            <c:forEach var="ticket" items="${tickets}" varStatus="i">
-                                                <input type="hidden" name="ticket${i.index}" value="${ticket.ticketId}" />
+                                            <input type="hidden" name="ticketCount" value="${orderSummary.tickets.size()}" />
+                                            <c:forEach var="ticket" items="${orderSummary.tickets}" varStatus="i">
+                                                <input type="hidden" name="tickets[${i.index}].ticketId" value="${ticket.ticketId}" />
                                                 <tr>
                                                     <td>${ticket.seat}</td>
                                                     <td>${ticket.flight.departingAirport.city} to ${ticket.flight.arrivingAirport.city}</td>
                                                     <td>${ticket.flight.flightDatetime}</td>
                                                     <td>$${ticket.price}</td>
-                                                    <td><input type="text" class="input" name="firstName${i.index}" required="true" /></td>
-                                                    <td><input type="text" class="input" name="lastName${i.index}" required="true" /></td>
+                                                    <td><form:input type="text" class="input" path="tickets[${i.index}].passengerFirstname" required="true" /></td>
+                                                    <td><form:input type="text" class="input" path="tickets[${i.index}].passengerLastname" required="true" /></td>
                                                 </tr>
                                             </c:forEach>
                                             <tr>
@@ -99,11 +99,11 @@
                                         <table>
                                             <tr>
                                                 <td>First Name*</td>
-                                                <td><input type="text" name="customerFirstName" class="input" required /></td>
+                                                <td><form:input type="text" path="customerFirstName" class="input" required="true" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Last Name*</td>
-                                                <td><input type="text" name="customerLastName" class="input" required /></td>
+                                                <td><form:input type="text" path="customerLastName" class="input" required="true" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Card Number*</td>
@@ -132,7 +132,7 @@
                                     </div>
                                     <br />
                                     <input type="submit" class="button1" value="Purchase Ticket(s)" />
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>
