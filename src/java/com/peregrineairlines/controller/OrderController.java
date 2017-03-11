@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -47,11 +48,11 @@ public class OrderController {
     }
     
     @RequestMapping(value = "/submitOrder", method = RequestMethod.POST)
-    public String orderTickets(@ModelAttribute("orderSummary") OrderSummary orderSummary, Model model) {
+    public String orderTickets(@ModelAttribute("orderSummary") OrderSummary orderSummary, Model model, RedirectAttributes redirectAttributes) {
         Collection<Ticket> purchasedTickets = PAModel.submitOrder(orderSummary.getTickets(), orderSummary.getCustomerFirstName(), orderSummary.getCustomerLastName());
         
-        model.addAttribute("purchasedTickets", purchasedTickets);
+        redirectAttributes.addFlashAttribute("purchasedTickets", purchasedTickets);
         
-        return "confirmation";
+        return "redirect:/confirmation";
     }
 }
