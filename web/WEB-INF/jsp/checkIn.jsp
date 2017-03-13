@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Confirmation</title>
+        <title>CheckIn</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="<c:url value="/resources/css/reset.css" />" type="text/css" media="all">
         <link rel="stylesheet" href="<c:url value="/resources/css/layout.css" />" type="text/css" media="all">
@@ -33,14 +34,14 @@
             <!--header -->
             <header>
                 <div class="wrapper">
-                    <h1><a href="/PeregrineAirlines/Home" id="logo">Air lines</a></h1>
+                    <h1><a href="index.html" id="logo">Air lines</a></h1>
                     <span id="slogan">Fast, Frequent &amp; Safe Flights</span>
                 </div>
                 <nav>
                     <ul id="menu">
-                        <li id="menu_active"><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
+                        <li><a href="/PeregrineAirlines/Home"><span><span>Home</span></span></a></li>
                         <li><a href="/PeregrineAirlines/Home"><span><span>Book Flight</span></span></a></li>
-                        <li><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
+                        <li id="menu_active"><a href="/PeregrineAirlines/CheckIn"><span><span>Check In</span></span></a></li>
                         <li class="end"><a href="/PeregrineAirlines/ChangeFlight"><span><span>Change Flight</span></span></a></li>
                     </ul>
                 </nav>
@@ -48,47 +49,29 @@
             <!-- / header -->
             <!--content -->
             <section id="content">
-                <div class="wrapper pad1" style="min-height: 500px;">
-                    <c:if test="${purchasedTickets != null}">
-                        <h2 class="top">Order Confirmation</h2>
-                        <table style="width: 100%;">
-                            <tr>
-                                <td><b>Ticket Number</b></td>
-                                <td><b>Flight Number</b></td>
-                                <td><b>Seat</b></td>
-                                <td><b>Passenger First Name</b></td>
-                                <td><b>Passenger Last Name</b></td>
-                            </tr>
-                            <c:forEach var="ticket" items="${purchasedTickets}">
-                                <tr>
-                                    <td>${ticket.ticketId}</td>
-                                    <td>${ticket.flight.flightId}</td>
-                                    <td>${ticket.seat}</td>
-                                    <td>${ticket.passengerFirstname}</td>
-                                    <td>${ticket.passengerLastname}</td>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                    </c:if>
-                    <c:if test="${checkedTicket != null}">
-                        <h2 class="top">You are checked in</h2>
-                        <table style="width: 100%;">
-                            <tr>
-                                <td><b>Ticket Number</b></td>
-                                <td><b>Flight Number</b></td>
-                                <td><b>Seat</b></td>
-                                <td><b>Passenger First Name</b></td>
-                                <td><b>Passenger Last Name</b></td>
-                            </tr>
-                            <tr>
-                                <td>${checkedTicket.ticketId}</td>
-                                <td>${checkedTicket.flight.flightId}</td>
-                                <td>${checkedTicket.seat}</td>
-                                <td>${checkedTicket.passengerFirstname}</td>
-                                <td>${checkedTicket.passengerLastname}</td>
-                            </tr>
-                        </table>
-                    </c:if>
+                <div class="for_banners">
+                    <article class="col1">
+                        <div class="content">
+                            <form:form modelAttribute="ticket" id="form_1" action="/PeregrineAirlines/findTicket">
+                                <div class="radio">
+                                    <table>
+                                        <tr>
+                                            <td>Confirmation Number*</td>
+                                            <td><form:input type="text" path="ticketId" class="input" required="true" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Passenger Last Name*</td>
+                                            <td><form:input type="text" path="passengerLastname" class="input" required="true" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input type="submit" class="button1" value="Check In" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </form:form>
+                        </div>
+                    </article>
                 </div>
             </section>
         </div>
