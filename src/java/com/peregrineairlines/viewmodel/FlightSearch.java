@@ -1,4 +1,4 @@
-package com.peregrineairlines.formmodel;
+package com.peregrineairlines.viewmodel;
 
 import java.util.Date;
 

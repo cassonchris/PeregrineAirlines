@@ -1,8 +1,8 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Ticket;
-import com.peregrineairlines.formmodel.FlightSearch;
-import com.peregrineairlines.formmodel.OrderSummary;
+import com.peregrineairlines.viewmodel.FlightSearch;
+import com.peregrineairlines.viewmodel.OrderSummary;
 import com.peregrineairlines.model.PAModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;

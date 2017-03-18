@@ -1,7 +1,7 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Ticket;
-import com.peregrineairlines.formmodel.CheckIn;
+import com.peregrineairlines.viewmodel.CheckIn;
 import com.peregrineairlines.model.PAModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
