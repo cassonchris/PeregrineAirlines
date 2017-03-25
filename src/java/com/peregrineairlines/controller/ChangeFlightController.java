@@ -1,6 +1,7 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Airport;
+import com.peregrineairlines.entities.Flight;
 import com.peregrineairlines.entities.Ticket;
 import com.peregrineairlines.model.PAModel;
 import com.peregrineairlines.viewmodel.FlightSearch;
@@ -40,5 +41,23 @@ public class ChangeFlightController {
         } else {
             return "redirect:/changeFlight";
         }
+    }
+    
+    @RequestMapping(value = {"/changeFlight", "/ChangeFlight"}, method = RequestMethod.POST)
+    public String changeFlight(@ModelAttribute("flightSearch") FlightSearch flightSearch, Model model) {
+        Ticket exchangeTicket = PAModel.getTicketByIdAndPassengerLastname(flightSearch.getTicket().getTicketId(), flightSearch.getTicket().getPassengerLastname());
+        model.addAttribute("exchangeTicketId", exchangeTicket.getTicketId());
+        
+        if (flightSearch.getDepartDate() != null) {
+            Collection<Flight> flights = PAModel.searchFlights(flightSearch.getArrivingAirport(), flightSearch.getDepartingAirport(), flightSearch.getDepartDate(), flightSearch.getPassengers());
+            model.addAttribute("flights", flights);
+        }
+        
+        if (flightSearch.getReturnDate() != null) {
+            Collection<Flight> returnFlights = PAModel.searchFlights(flightSearch.getDepartingAirport(), flightSearch.getArrivingAirport(), flightSearch.getReturnDate(), flightSearch.getPassengers());
+            model.addAttribute("returnFlights", returnFlights);
+        }
+        
+        return "searchResults";
     }
 }

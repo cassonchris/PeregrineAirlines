@@ -52,6 +52,7 @@
                 <div class="wrapper pad1" style="min-height: 500px;">
                     <form:form modelAttribute="flightSearch" action="/PeregrineAirlines/order">
                         <form:input type="hidden" path="passengers" value="${flightSearch.passengers}" />
+                        <form:input type="hidden" path="exchangeTicketId" value="${exchangeTicketId}" />
                         <div class="box2">
                             <h2 class="top">Flight Details</h2>
                             <div>

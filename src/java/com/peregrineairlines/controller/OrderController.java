@@ -43,6 +43,7 @@ public class OrderController {
         
         model.addAttribute("orderTotal", orderTotal);
         model.addAttribute("orderSummary", orderSummary);
+        model.addAttribute("exchangeTicketId", flightSearch.getExchangeTicketId());
         
         return "order";
     }
@@ -50,6 +51,10 @@ public class OrderController {
     @RequestMapping(value = "/submitOrder", method = RequestMethod.POST)
     public String orderTickets(@ModelAttribute("orderSummary") OrderSummary orderSummary, Model model, RedirectAttributes redirectAttributes) {
         Collection<Ticket> purchasedTickets = PAModel.submitOrder(orderSummary.getTickets(), orderSummary.getCustomerFirstName(), orderSummary.getCustomerLastName());
+        
+        if (orderSummary.getExchangeTicketId() != null) {
+            PAModel.returnTicket(orderSummary.getExchangeTicketId());
+        }
         
         redirectAttributes.addFlashAttribute("purchasedTickets", purchasedTickets);
         

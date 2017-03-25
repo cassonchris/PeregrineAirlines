@@ -17,6 +17,7 @@ public class FlightSearch {
     private Integer flightId;
     private Integer returnFlightId;
     private Ticket ticket;
+    private Integer exchangeTicketId;
 
     //<editor-fold defaultstate="collapsed" desc="getters and setters">
     public Integer getDepartingAirport() {
@@ -81,6 +82,14 @@ public class FlightSearch {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
+    }
+
+    public Integer getExchangeTicketId() {
+        return exchangeTicketId;
+    }
+
+    public void setExchangeTicketId(Integer exchangeTicketId) {
+        this.exchangeTicketId = exchangeTicketId;
     }
     //</editor-fold>
 }

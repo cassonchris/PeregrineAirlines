@@ -129,22 +129,22 @@
                                             </tr>
                                             <tr>
                                                 <td>Depart Date:</td>
-                                                <td><input type="date" class="datepicker input" name="departdate" /></td>
+                                                <td><form:input type="date" class="datepicker input" path="departDate" /></td>
                                             </tr>
                                             <tr id="returnDateRow" style="display: none;">
                                                 <td>Return Date:</td>
-                                                <td><input type="date" class="datepicker input" name="returndate" /></td>
+                                                <td><form:input type="date" class="datepicker input" path="returnDate" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Passengers</td>
                                                 <td>
-                                                    <select name="passengers">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select>
+                                                    <form:select path="passengers">
+                                                        <form:option value="1">1</form:option>
+                                                        <form:option value="2">2</form:option>
+                                                        <form:option value="3">3</form:option>
+                                                        <form:option value="4">4</form:option>
+                                                        <form:option value="5">5</form:option>
+                                                    </form:select>
                                                 </td>
                                             </tr>
                                         </table>

@@ -10,6 +10,7 @@ import java.util.List;
 public class OrderSummary {
     private List<Ticket> tickets;
     private String customerFirstName, customerLastName;
+    private Integer exchangeTicketId;
 
     //<editor-fold defaultstate="collapsed" desc="getters and setters">
     public List<Ticket> getTickets() {
@@ -34,6 +35,14 @@ public class OrderSummary {
     
     public void setCustomerLastName(String customerLastName) {
         this.customerLastName = customerLastName;
+    }
+
+    public Integer getExchangeTicketId() {
+        return exchangeTicketId;
+    }
+
+    public void setExchangeTicketId(Integer exchangeTicketId) {
+        this.exchangeTicketId = exchangeTicketId;
     }
     //</editor-fold>
 }

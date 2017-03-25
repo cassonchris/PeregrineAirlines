@@ -60,6 +60,7 @@
                         <div class="content" style="width: 100%;">
                             <div class="tab-content" id="Flight">
                                 <form:form modelAttribute="orderSummary" id="form_5" class="form_5" method="post" action="/PeregrineAirlines/submitOrder">
+                                    <form:input type="hidden" path="exchangeTicketId" value="${exchangeTicketId}" />
                                     <h2 class="top">Ticket Summary</h2>
                                     <div class="pad wrapper under">
                                         <table style="width: 100%;">
