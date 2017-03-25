@@ -1,5 +1,6 @@
 package com.peregrineairlines.viewmodel;
 
+import com.peregrineairlines.entities.Ticket;
 import java.util.Date;
 
 /**
@@ -15,6 +16,7 @@ public class FlightSearch {
     private Integer passengers;
     private Integer flightId;
     private Integer returnFlightId;
+    private Ticket ticket;
 
     //<editor-fold defaultstate="collapsed" desc="getters and setters">
     public Integer getDepartingAirport() {
@@ -71,6 +73,14 @@ public class FlightSearch {
 
     public void setReturnFlightId(Integer returnFlightId) {
         this.returnFlightId = returnFlightId;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
     //</editor-fold>
 }

@@ -37,8 +37,10 @@
             function toggleSearchDiv() {
                 if (document.getElementById("changeFlightRadio").checked) {
                     document.getElementById("searchDiv").style.display = "block";
+                    document.getElementById("form").action = "/PeregrineAirlines/ChangeFlight";
                 } else {
                     document.getElementById("searchDiv").style.display = "none";
+                    document.getElementById("form").action = "/PeregrineAirlines/CancelFlight";
                 }
             }
         </script>
@@ -77,16 +79,16 @@
                 <div class="for_banners">
                     <article class="col1">
                         <div class="content">
-                            <form:form id="form_1" modelAttribute="flightSearch" action="/PeregrineAirlines/ChangeFlight">
+                            <form:form id="form" modelAttribute="flightSearch" action="/PeregrineAirlines/ChangeFlight">
                                 <div class="radio">
                                     <table>
                                         <tr>
                                             <td>Confirmation Number*</td>
-                                            <td><input type="text" name="ticketId" class="input" required /></td>
+                                            <td><form:input type="text" path="ticket.ticketId" class="input" required="true" /></td>
                                         </tr>
                                         <tr>
                                             <td>Passenger Last Name*</td>
-                                            <td><input type="text" name="passengerLastname" class="input" required /></td>
+                                            <td><form:input type="text" path="ticket.passengerLastname" class="input" required="true" /></td>
                                         </tr>
                                         <tr>
                                             <td>Cancel</td>

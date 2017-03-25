@@ -89,6 +89,25 @@
                             </tr>
                         </table>
                     </c:if>
+                    <c:if test="${returnedTicket != null}">
+                        <h2 class="top">Your ticket has been returned</h2>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><b>Ticket Number</b></td>
+                                <td><b>Flight Number</b></td>
+                                <td><b>Seat</b></td>
+                                <td><b>Passenger First Name</b></td>
+                                <td><b>Passenger Last Name</b></td>
+                            </tr>
+                            <tr>
+                                <td>${returnedTicket.ticketId}</td>
+                                <td>${returnedTicket.flight.flightId}</td>
+                                <td>${returnedTicket.seat}</td>
+                                <td>${returnedTicket.passengerFirstname}</td>
+                                <td>${returnedTicket.passengerLastname}</td>
+                            </tr>
+                        </table>
+                    </c:if>
                 </div>
             </section>
         </div>
