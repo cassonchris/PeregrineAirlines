@@ -1,7 +1,7 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Flight;
-import com.peregrineairlines.model.PAModel;
+import com.peregrineairlines.services.FlightService;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.peregrineairlines.viewmodel.FlightSearch;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -17,6 +18,9 @@ import com.peregrineairlines.viewmodel.FlightSearch;
  */
 @Controller
 public class SearchController {
+    
+    @Autowired
+    private FlightService flightService;
         
     /**
      * Flight search result page
@@ -32,7 +36,7 @@ public class SearchController {
         
         if (flightSearch.getDepartDate() != null) {
             flights.addAll(
-                PAModel.searchFlights(
+                flightService.searchFlights(
                     flightSearch.getArrivingAirport(), 
                     flightSearch.getDepartingAirport(), 
                     flightSearch.getDepartDate(), 
@@ -43,7 +47,7 @@ public class SearchController {
             
         if (flightSearch.getReturnDate() != null) {
             returnFlights.addAll(
-                PAModel.searchFlights(
+                flightService.searchFlights(
                     flightSearch.getDepartingAirport(), 
                     flightSearch.getArrivingAirport(), 
                     flightSearch.getReturnDate(), 

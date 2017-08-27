@@ -5,11 +5,13 @@ import com.peregrineairlines.entities.TicketOrder;
 import com.peregrineairlines.entities.TicketReturn;
 import com.peregrineairlines.model.PAModel;
 import java.util.Collection;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Chris
  */
+@Service
 public class TicketServiceLegacyAdapter implements TicketService {
 
     @Override

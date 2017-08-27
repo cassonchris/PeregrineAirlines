@@ -2,11 +2,13 @@ package com.peregrineairlines.services;
 
 import com.peregrineairlines.entities.Customer;
 import com.peregrineairlines.model.PAModel;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Chris
  */
+@Service
 public class CustomerServiceLegacyAdapter implements CustomerService {
 
     @Override

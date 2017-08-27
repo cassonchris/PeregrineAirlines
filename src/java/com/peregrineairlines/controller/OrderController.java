@@ -1,13 +1,15 @@
 package com.peregrineairlines.controller;
 
 import com.peregrineairlines.entities.Ticket;
+import com.peregrineairlines.services.OrderService;
+import com.peregrineairlines.services.TicketService;
 import com.peregrineairlines.viewmodel.FlightSearch;
 import com.peregrineairlines.viewmodel.OrderSummary;
-import com.peregrineairlines.model.PAModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,15 +24,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class OrderController {
     
+    @Autowired
+    private TicketService ticketService;
+    
+    @Autowired
+    private OrderService orderService;
+    
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     public String orderTickets(@ModelAttribute("flightSearch") FlightSearch flightSearch, Model model) {
         List<Ticket> tickets = new ArrayList<>();
         if (flightSearch.getFlightId() != null) {
-            tickets.addAll(PAModel.getAvailableTicketsByFlightId(flightSearch.getFlightId(), flightSearch.getPassengers()));
+            tickets.addAll(ticketService.getAvailableTicketsByFlightId(flightSearch.getFlightId(), flightSearch.getPassengers()));
         }
         
         if (flightSearch.getReturnFlightId() != null) {
-            tickets.addAll(PAModel.getAvailableTicketsByFlightId(flightSearch.getReturnFlightId(), flightSearch.getPassengers()));
+            tickets.addAll(ticketService.getAvailableTicketsByFlightId(flightSearch.getReturnFlightId(), flightSearch.getPassengers()));
         }
         
         BigDecimal orderTotal = BigDecimal.ZERO;
@@ -50,10 +58,10 @@ public class OrderController {
     
     @RequestMapping(value = "/submitOrder", method = RequestMethod.POST)
     public String orderTickets(@ModelAttribute("orderSummary") OrderSummary orderSummary, Model model, RedirectAttributes redirectAttributes) {
-        Collection<Ticket> purchasedTickets = PAModel.submitOrder(orderSummary.getTickets(), orderSummary.getCustomerFirstName(), orderSummary.getCustomerLastName());
+        Collection<Ticket> purchasedTickets = orderService.submitOrder(orderSummary.getTickets(), orderSummary.getCustomerFirstName(), orderSummary.getCustomerLastName());
         
         if (orderSummary.getExchangeTicketId() != null) {
-            PAModel.returnTicket(orderSummary.getExchangeTicketId());
+            ticketService.returnTicket(orderSummary.getExchangeTicketId());
         }
         
         redirectAttributes.addFlashAttribute("purchasedTickets", purchasedTickets);

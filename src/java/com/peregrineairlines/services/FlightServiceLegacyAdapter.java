@@ -4,11 +4,13 @@ import com.peregrineairlines.entities.Flight;
 import com.peregrineairlines.model.PAModel;
 import java.util.Collection;
 import java.util.Date;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Chris
  */
+@Service
 public class FlightServiceLegacyAdapter implements FlightService {
 
     @Override
